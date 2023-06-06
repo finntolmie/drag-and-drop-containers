@@ -12,20 +12,17 @@ document.querySelectorAll(".draggable").forEach((item) => {
 	};
 
 	function createPlaceholder(element) {
+		let elementBounds = element.getBoundingClientRect();
+		let itemBounds = item.getBoundingClientRect();
 		if (element.classList.contains("draggable")) {
-			if (
-				element.getBoundingClientRect().top +
-					element.getBoundingClientRect().height / 2 <
-				item.getBoundingClientRect().top +
-					item.getBoundingClientRect().height / 2
-			) {
-				element.insertAdjacentElement("beforebegin", placeholder);
-			} else {
-				element.insertAdjacentElement("afterend", placeholder);
-			}
+			elementBounds.top + elementBounds.height / 2 <
+			itemBounds.top + itemBounds.height / 2
+				? element.insertAdjacentElement("beforebegin", placeholder)
+				: element.insertAdjacentElement("afterend", placeholder);
 		} else if (
 			element.classList.contains("bounds") &&
-			element != item.parentElement
+			element != item.parentElement &&
+			element.childElementCount == 0
 		) {
 			element.appendChild(placeholder);
 		}
@@ -44,7 +41,7 @@ document.querySelectorAll(".draggable").forEach((item) => {
 			moveTo(e.pageX, e.pageY);
 			let elementBelow = document.elementFromPoint(e.clientX, e.clientY);
 
-			if (!elementBelow.classList.contains("placeholder")) {
+			if (elementBelow && !elementBelow.classList.contains("placeholder")) {
 				createPlaceholder(elementBelow);
 			}
 		}

@@ -17,7 +17,7 @@ body {
 }
 
 .bounds {
-  padding: 1rem;
+  min-height: 4rem;
   width: 10%;
   height: fit-content;
   size: auto;
@@ -30,6 +30,9 @@ body {
 
 .draggable {
   aspect-ratio: 1;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   height: 4rem;
   background-color: rgba(0, 255, 0, 0.8);
   cursor: grab;
