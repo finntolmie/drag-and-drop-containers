@@ -10,6 +10,27 @@ document.querySelectorAll(".draggable").forEach((item) => {
 	item.ondragstart = function () {
 		return false;
 	};
+
+	function createPlaceholder(element) {
+		if (element.classList.contains("draggable")) {
+			if (
+				element.getBoundingClientRect().top +
+					element.getBoundingClientRect().height / 2 <
+				item.getBoundingClientRect().top +
+					item.getBoundingClientRect().height / 2
+			) {
+				element.insertAdjacentElement("beforebegin", placeholder);
+			} else {
+				element.insertAdjacentElement("afterend", placeholder);
+			}
+		} else if (
+			element.classList.contains("bounds") &&
+			element != item.parentElement
+		) {
+			element.appendChild(placeholder);
+		}
+	}
+
 	item.onmousedown = function (e) {
 		item.classList.add("dragging");
 		moveTo(e.pageX, e.pageY);
@@ -24,39 +45,12 @@ document.querySelectorAll(".draggable").forEach((item) => {
 			let elementBelow = document.elementFromPoint(e.clientX, e.clientY);
 
 			if (!elementBelow.classList.contains("placeholder")) {
-				if (elementBelow.classList.contains("draggable")) {
-					if (
-						elementBelow.getBoundingClientRect().left >
-						item.getBoundingClientRect().left
-					) {
-						elementBelow.insertAdjacentElement("beforebegin", placeholder);
-					} else {
-						elementBelow.insertAdjacentElement("afterend", placeholder);
-					}
-				} else if (elementBelow.classList.contains("bounds")) {
-					elementBelow.appendChild(placeholder);
-				}
+				createPlaceholder(elementBelow);
 			}
 		}
 
 		function onLetGo(e) {
-			let elementBelow = document.elementFromPoint(e.clientX, e.clientY);
-			if (elementBelow.classList.contains("placeholder")) {
-				elementBelow.insertAdjacentElement("beforebegin", item);
-				placeholder.remove();
-			}
-			if (elementBelow.classList.contains("draggable")) {
-				if (
-					elementBelow.getBoundingClientRect().left >
-					item.getBoundingClientRect().left
-				) {
-					elementBelow.insertAdjacentElement("beforebegin", item);
-				} else {
-					elementBelow.insertAdjacentElement("afterend", item);
-				}
-			} else if (elementBelow.classList.contains("bounds")) {
-				elementBelow.appendChild(item);
-			}
+			placeholder.insertAdjacentElement("beforebegin", item);
 			placeholder.remove();
 			item.classList.remove("dragging");
 			document.removeEventListener("mousemove", onDrag);
@@ -65,5 +59,6 @@ document.querySelectorAll(".draggable").forEach((item) => {
 
 		document.addEventListener("mousemove", onDrag);
 		document.addEventListener("mouseup", onLetGo);
+		createPlaceholder(item);
 	};
 });

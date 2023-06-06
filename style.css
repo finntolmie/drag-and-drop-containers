@@ -39,6 +39,7 @@ body {
 .dragging {
   z-index: 2;
   scale: 1.2;
+  rotate: 10deg;
   position: absolute;
   pointer-events: none;
   cursor: grabbing;
