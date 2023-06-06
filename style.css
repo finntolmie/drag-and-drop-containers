@@ -17,17 +17,20 @@ body {
 }
 
 .bounds {
-  aspect-ratio: 1;
-  height: 80%;
+  padding: 1rem;
+  width: 10%;
+  height: fit-content;
+  size: auto;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: top;
   justify-content: center;
 }
 
 .draggable {
   aspect-ratio: 1;
-  height: 10%;
+  height: 4rem;
   background-color: rgba(0, 255, 0, 0.8);
   cursor: grab;
   -webkit-user-drag: none;
@@ -35,7 +38,15 @@ body {
 
 .dragging {
   z-index: 2;
+  scale: 1.2;
   position: absolute;
   pointer-events: none;
   cursor: grabbing;
+}
+
+.placeholder {
+  aspect-ratio: 1;
+  height: 4rem;
+  scale: 1.2;
+  background-color: gray;
 }
