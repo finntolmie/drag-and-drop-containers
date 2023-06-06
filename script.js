@@ -23,7 +23,6 @@ document.querySelectorAll(".draggable").forEach((item) => {
 
 		function onLetGo(e) {
 			let elementBelow = document.elementFromPoint(e.clientX, e.clientY);
-			console.log(elementBelow);
 			if (elementBelow.classList.contains("draggable")) {
 				elementBelow.insertAdjacentElement("beforebegin", item);
 			} else if (elementBelow.classList.contains("bounds")) {
