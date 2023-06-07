@@ -11,7 +11,7 @@ document.querySelectorAll(".draggable").forEach((item) => {
 		return false;
 	};
 
-	function createPlaceholder(element, mouseY = null) {
+	function createPlaceholder(element) {
 		let elementBounds = element.getBoundingClientRect();
 		if (element.classList.contains("draggable")) {
 			placeholder.getBoundingClientRect().top > elementBounds.top
@@ -38,9 +38,8 @@ document.querySelectorAll(".draggable").forEach((item) => {
 		function onDrag(e) {
 			moveTo(e.pageX, e.pageY);
 			let elementBelow = document.elementFromPoint(e.clientX, e.clientY);
-
 			if (elementBelow && !elementBelow.classList.contains("placeholder")) {
-				createPlaceholder(elementBelow, e.clientY);
+				createPlaceholder(elementBelow);
 			}
 		}
 
