@@ -11,12 +11,10 @@ document.querySelectorAll(".draggable").forEach((item) => {
 		return false;
 	};
 
-	function createPlaceholder(element) {
+	function createPlaceholder(element, mouseY = null) {
 		let elementBounds = element.getBoundingClientRect();
-		let itemBounds = item.getBoundingClientRect();
 		if (element.classList.contains("draggable")) {
-			elementBounds.top + elementBounds.height / 2 <
-			itemBounds.top + itemBounds.height / 2
+			mouseY < elementBounds.top + elementBounds.height / 2
 				? element.insertAdjacentElement("beforebegin", placeholder)
 				: element.insertAdjacentElement("afterend", placeholder);
 		} else if (
@@ -42,11 +40,11 @@ document.querySelectorAll(".draggable").forEach((item) => {
 			let elementBelow = document.elementFromPoint(e.clientX, e.clientY);
 
 			if (elementBelow && !elementBelow.classList.contains("placeholder")) {
-				createPlaceholder(elementBelow);
+				createPlaceholder(elementBelow, e.clientY);
 			}
 		}
 
-		function onLetGo(e) {
+		function onLetGo() {
 			placeholder.insertAdjacentElement("beforebegin", item);
 			placeholder.remove();
 			item.classList.remove("dragging");

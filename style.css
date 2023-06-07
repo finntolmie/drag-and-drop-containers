@@ -5,52 +5,65 @@ body {
   height: 100vh;
   display: grid;
   place-items: center;
-  overflow: hidden;
 }
 
 .container {
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: left;
+  margin-top: 200px;
+  margin-left: 200px;
 }
 
 .bounds {
-  min-height: 4rem;
-  width: 10%;
+  min-height: 5rem;
+  margin-right: 50px;
+  width: 5rem;
   height: fit-content;
+  min-width: fit-content;
   size: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-items: top;
+  align-items: center;
   justify-content: center;
 }
 
+.draggable, .placeholder {
+  aspect-ratio: 1/1;
+  width: inherit;
+  box-sizing: border-box;
+}
+
 .draggable {
-  aspect-ratio: 1;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
-  height: 4rem;
-  background-color: rgba(0, 255, 0, 0.8);
   cursor: grab;
   -webkit-user-drag: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rebeccapurple;
+  user-select: none;
+}
+
+.placeholder {
+  scale: 0.8;
+  background-color: gray;
 }
 
 .dragging {
   z-index: 2;
-  scale: 1.2;
+  aspect-ratio: 1/1;
+  width: inherit;
   rotate: 10deg;
   position: absolute;
   pointer-events: none;
   cursor: grabbing;
 }
 
-.placeholder {
-  aspect-ratio: 1;
-  height: 4rem;
-  scale: 1.2;
-  background-color: gray;
+.item {
+  aspect-ratio: 1/1;
+  width: 80%;
+
 }
