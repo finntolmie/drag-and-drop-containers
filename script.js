@@ -14,7 +14,7 @@ document.querySelectorAll(".draggable").forEach((item) => {
 	function createPlaceholder(element, mouseY = null) {
 		let elementBounds = element.getBoundingClientRect();
 		if (element.classList.contains("draggable")) {
-			mouseY < elementBounds.top + elementBounds.height / 2
+			placeholder.getBoundingClientRect().top > elementBounds.top
 				? element.insertAdjacentElement("beforebegin", placeholder)
 				: element.insertAdjacentElement("afterend", placeholder);
 		} else if (
